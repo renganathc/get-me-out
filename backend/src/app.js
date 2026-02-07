@@ -11,9 +11,12 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/call", async (req, res) => {
-    const { time, phone } = req.body;
-    const val = await makeCall(phone);
-    res.send(val);
+    const { call_after, phone } = req.body;
+    let val = null;
+    setTimeout(async () => {
+        val = await makeCall(phone);
+        res.send(val);
+    }, call_after*1000)
 });
 
 export default app;
